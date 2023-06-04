@@ -1,0 +1,118 @@
+networks:
+    codestoon:
+        driver: bridge
+
+
+services:
+    codestoon-db:
+        image: mysql:8.0
+        restart: unless-stopped
+        container_name: codestoon-db
+        working_dir: /var/www
+        volumes:
+            - ./mysql/:/var/lib/mysql
+        environment:
+            - MYSQL_DATABASE=codestoon
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=codestoon
+            - MYSQL_PASSWORD=codestoon
+        ports:
+            - 9306:3306
+        networks:
+            - codestoon
+
+    echo:
+        build:
+            context: ./echo
+            dockerfile: Dockerfile
+        container_name: codestoon-echo
+        working_dir: /var/www
+        restart: unless-stopped
+        volumes:
+            - "./echo/config/:/var/www"
+        expose:
+            - 6001
+        depends_on:
+            - redis
+            - codestoon
+        networks:
+            - codestoon
+
+    codestoon:
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        container_name: codestoon
+        image: codestoon
+        restart: unless-stopped
+        working_dir: /var/www
+        expose:
+            - 9000
+        environment:
+            - DOCKER_HOST_USER_ID=1000
+            - DOCKER_HOST_GROUP_ID=1000
+        volumes:
+            - ../:/var/www/
+        networks:
+            - codestoon
+        depends_on:
+            - codestoon-db
+            - codestoon-elasticsearch
+            - codestoon-redis
+
+
+    supervisor:
+        build:
+            context: ./supervisor
+            dockerfile: Dockerfile
+        container_name: codestoon-supervisor
+        image: codestoon-supervisor
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ../:/var/www/
+            - ./supervisor/logs/:/etc/supervisor/logs
+            - ./supervisor/config/:/etc/supervisor/custom
+        networks:
+            - codestoon
+        depends_on:
+            - codestoon
+
+    codestoon-nginx:
+        image: nginx:1
+        restart: unless-stopped
+        container_name: codestoon-nginx
+        working_dir: /var/www
+        volumes:
+            - ../:/var/www/
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ./nginx/logs/:/etc/nginx/logs/
+        ports:
+            - 9080:80
+        networks:
+            - codestoon
+
+    codestoon-elasticsearch:
+        image: elasticsearch:7.17.9
+        container_name: codestoon-elasticsearch
+        restart: unless-stopped
+        environment:
+            - xpack.security.enabled=false
+            - discovery.type=single-node
+            - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+        volumes:
+            - ./elasticsearch:/usr/share/elasticsearch/data
+        ports:
+            - 9400:9200
+        networks:
+            - codestoon
+
+
+    codestoon-redis:
+        image: redis
+        container_name: codestoon-redis
+        volumes:
+            - ./redis:/data
+        restart: unless-stopped
+        networks:
+            - codestoon
