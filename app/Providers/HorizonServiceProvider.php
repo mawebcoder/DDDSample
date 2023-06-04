@@ -11,7 +11,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     /**
      * Bootstrap any application services.
      */
-  
+
 
     /**
      * Register the Horizon gate.
