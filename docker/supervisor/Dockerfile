@@ -18,18 +18,23 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
+    net-tools \
+    nano \
     supervisor \
-    ffmpeg
+    telnetd \
+    iputils-ping \
+    tcpdump
 
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 
+RUN pecl install redis
 #install php required extensions
 RUN docker-php-ext-install pdo_mysql pdo mbstring exif pcntl bcmath gd zip sockets
 
 #enable installed extensions
-RUN docker-php-ext-enable pdo_mysql pdo mbstring exif pcntl bcmath gd zip  sockets
+RUN docker-php-ext-enable pdo_mysql pdo mbstring exif pcntl bcmath gd zip  sockets redis
 
 CMD ["/usr/bin/supervisord","-c", "/etc/supervisor/custom/supervisord.conf"]

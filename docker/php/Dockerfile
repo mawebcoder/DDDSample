@@ -19,7 +19,11 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    ffmpeg
+    net-tools \
+    nano \
+    telnetd \
+    iputils-ping \
+    tcpdump
 
 #install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
@@ -34,11 +38,14 @@ RUN apt-get clean && \
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 
+RUN pecl install redis
+
 #install php required extensions
 RUN docker-php-ext-install pdo_mysql pdo mbstring exif pcntl bcmath gd zip sockets
 
 #enable installed extensions
-RUN docker-php-ext-enable pdo_mysql pdo mbstring exif pcntl bcmath gd zip  sockets
+RUN docker-php-ext-enable pdo_mysql pdo mbstring exif pcntl bcmath gd zip  sockets redis
+
 
 EXPOSE 9000
 
