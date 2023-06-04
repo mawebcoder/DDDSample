@@ -19,6 +19,8 @@ class ACLWriteRepository implements ACLWriteRepositoryInterface
 
         $role->{Role::COLUMN_IS_ACTIVE} = $roleValueObject->getIsActive();
 
+        $role->save();
+
         $role->permissions()->sync($permissionIds);
     }
 }

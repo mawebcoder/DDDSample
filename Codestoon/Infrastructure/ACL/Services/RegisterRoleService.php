@@ -18,6 +18,7 @@ class RegisterRoleService implements RegisterRoleServiceInterface
     {
         $roleValueObject = new RoleValueObject();
 
+
         $roleValueObject->setIsActive($registerRoleDataTransformObject->isActive)
             ->setEnglishTitle($registerRoleDataTransformObject->englishTitle)
             ->setPersianTitle($registerRoleDataTransformObject->persianTitle);
