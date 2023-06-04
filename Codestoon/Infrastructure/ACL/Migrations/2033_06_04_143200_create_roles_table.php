@@ -11,9 +11,12 @@ return new class extends Migration {
     public function up()
     {
         Schema::create((new Role())->getTable(), function (Blueprint $table) {
+            $table->id();
             $table->string(Role::COLUMN_PERSIAN_TITLE)->unique();
             $table->string(Role::COLUMN_ENGLISH_TITLE)->unique();
             $table->boolean(Role::COLUMN_IS_ACTIVE)->default(false);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

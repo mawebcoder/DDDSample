@@ -3,14 +3,24 @@
 namespace Codestoon\Domains\ACL\Entities;
 
 use Codestoon\Domains\ACL\Aggregates\RoleAggregatesTrait;
+use Codestoon\Infrastructure\ACL\Factories\RoleFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
+    use HasFactory;
     use RoleAggregatesTrait;
+
     protected $table = 'roles';
 
     public const COLUMN_PERSIAN_TITLE = 'persian_title';
     public const COLUMN_IS_ACTIVE = 'is_active';
     public const COLUMN_ENGLISH_TITLE = 'english_title';
+
+    protected static function newFactory(): RoleFactory
+    {
+        return RoleFactory::new();
+    }
 }
