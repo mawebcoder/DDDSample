@@ -37,6 +37,36 @@ class UserTest extends TestCase
 
         $response->assertCreated();
 
-        $this->assertDatabaseHas((new User())->getTable(), Arr::except($data, [User::COLUMN_PASSWORD,'confirm_password']));
+        $this->assertDatabaseHas(
+            (new User())->getTable(),
+            Arr::except($data, [User::COLUMN_PASSWORD, 'confirm_password'])
+        );
+    }
+
+    public function test_can_update_user()
+    {
+        $user = User::factory()
+            ->for(Role::factory(), 'role')
+            ->create();
+
+        $data = [
+            User::COLUMN_FIRST_NAME => $this->faker->firstName,
+            User::COLUMN_LAST_NAME => $this->faker->lastName,
+            User::COLUMN_PHONE_NUMBER => '09226526781',
+            User::COLUMN_EMAIL => $this->faker->unique()->email,
+            User::COLUMN_ROLE_ID => Role::factory()->create()->id,
+            User::COLUMN_IS_ACTIVE => intval($this->faker->boolean),
+            User::COLUMN_PASSWORD => 'Mohammad$1234',
+            'confirm_password' => 'Mohammad$1234'
+        ];
+
+        $response = $this->putJson(route('user.update', ['id' => $user->id]), $data);
+
+        $response->assertOk();
+
+        $this->assertDatabaseHas(
+            (new User())->getTable(),
+            Arr::except($data, [User::COLUMN_PASSWORD, 'confirm_password'])
+        );
     }
 }

@@ -24,9 +24,6 @@ class RegisterUserService implements RegisterUserServiceInterface
 
         $userValueObject->setPhoneNumber($registerUserDataTransformObject->phoneNumber);
 
-        if ($registerUserDataTransformObject->phoneNumber) {
-            $userValueObject->setPhoneVerifiedAt(now());
-        }
         $userValueObject->setFirstName($registerUserDataTransformObject->firstName);
 
         $userValueObject->setLastName($registerUserDataTransformObject->lastName);

@@ -68,6 +68,12 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../Codestoon/Infrastructure/User/Migrations');
 
+        /**
+         * Load Translations
+         */
+
+        $this->loadTranslationsFrom(__DIR__ . '/../../Codestoon/Domains/User/Lang', 'user');
+
 
         /**
          * bind Repositories

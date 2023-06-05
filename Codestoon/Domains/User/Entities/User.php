@@ -3,17 +3,30 @@
 namespace Codestoon\Domains\User\Entities;
 
 use Codestoon\Domains\User\Aggregates\UserAggregatesTrait;
+use Codestoon\Infrastructure\User\Factories\UserFactory;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Codestoon\Domains\BaseModel;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends BaseModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use  Notifiable;
     use UserAggregatesTrait;
+    use Authenticatable;
+    use  Authorizable;
+    use  CanResetPassword;
+    use  MustVerifyEmail;
 
     protected $table = 'users';
 
@@ -39,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public const COLUMN_PASSWORD = 'password';
     public const COLUMN_TEMPORARY_PASSWORD = 'temporary_password';
 
+
+    public static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 }

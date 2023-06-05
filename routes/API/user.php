@@ -9,4 +9,5 @@ Route::prefix('users')
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::post('/', 'store')->name('user.store');
+        Route::put('/{id}', 'update')->name('user.update');
     });
