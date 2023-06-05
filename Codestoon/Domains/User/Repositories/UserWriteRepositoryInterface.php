@@ -11,4 +11,6 @@ interface UserWriteRepositoryInterface
     public function store(UserValueObject $userValueObject): void;
 
     public function update(UserValueObject $userValueObject, int $userId);
+
+    public function delete(int $id): void;
 }

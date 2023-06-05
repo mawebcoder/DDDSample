@@ -108,4 +108,16 @@ class UserWriteRepository implements UserWriteRepositoryInterface
 
         throw_if($user, UserAlreadyExistsException::class);
     }
+
+    /**
+     * @throws Throwable
+     */
+    public function delete(int $id): void
+    {
+        $user = User::getById($id);
+
+        throw_if(!$user, UserNotFoundException::class);
+
+        $user->delete();
+    }
 }

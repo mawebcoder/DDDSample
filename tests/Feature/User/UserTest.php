@@ -69,4 +69,28 @@ class UserTest extends TestCase
             Arr::except($data, [User::COLUMN_PASSWORD, 'confirm_password'])
         );
     }
+
+    public function test_can_delete_user()
+    {
+        $user = User::factory()->create();
+
+        $response=$this->deleteJson(route('user.delete',['id'=>$user->id]));
+
+        $response->assertOk();
+
+        $this->assertModelMissing($user);
+
+    }
+
+    public function test_update_user_validation()
+    {
+    }
+
+    public function test_register_user_validation()
+    {
+    }
+
+    public function test_users_list()
+    {
+    }
 }

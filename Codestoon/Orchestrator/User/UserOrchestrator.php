@@ -5,10 +5,12 @@ namespace Codestoon\Orchestrator\User;
 use App\Http\Controllers\Controller;
 use Codestoon\Domains\User\DataTransformObjects\RegisterUserDataTransformObject;
 use Codestoon\Domains\User\DataTransformObjects\UpdateUserDataTransformObject;
+use Codestoon\Infrastructure\User\Services\DeleteUserService;
 use Codestoon\Infrastructure\User\Services\RegisterUserService;
 use Codestoon\Infrastructure\User\Services\UpdateUserService;
 use Codestoon\Presentation\User\Request\RegisterUserValidationRequest;
 use Codestoon\Presentation\User\Request\UpdateUserValidationRequest;
+use Codestoon\Presentation\User\Response\DeleteUserResponse;
 use Codestoon\Presentation\User\Response\RegisterUserResponse;
 use Illuminate\Http\JsonResponse;
 
@@ -39,5 +41,12 @@ class UserOrchestrator extends Controller
         $registerUserService($updateUserDataTransformObject);
 
         return (new RegisterUserResponse(null));
+    }
+
+    public function delete($id, DeleteUserService $deleteUserService): DeleteUserResponse
+    {
+        $deleteUserService($id);
+
+        return (new DeleteUserResponse(null));
     }
 }
