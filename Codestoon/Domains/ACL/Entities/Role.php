@@ -3,6 +3,7 @@
 namespace Codestoon\Domains\ACL\Entities;
 
 use Codestoon\Domains\ACL\Aggregates\RoleAggregatesTrait;
+use Codestoon\Domains\ACL\Events\RoleCreatedEvent;
 use Codestoon\Infrastructure\ACL\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,10 @@ class Role extends Model
     use RoleAggregatesTrait;
 
     protected $table = 'roles';
+
+    protected $dispatchesEvents = [
+        'created' => RoleCreatedEvent::class
+    ];
 
     public const COLUMN_PERSIAN_TITLE = 'persian_title';
     public const COLUMN_IS_ACTIVE = 'is_active';

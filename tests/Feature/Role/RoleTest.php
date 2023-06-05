@@ -1,24 +1,25 @@
 <?php
 
-namespace Tests\Feature\User;
+namespace Tests\Feature\Role;
 
 use Codestoon\Domains\ACL\Entities\Permission;
 use Codestoon\Domains\ACL\Entities\Role;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\WithFaker;
 
-class UserTest extends TestCase
+class RoleTest extends TestCase
 {
 
     use RefreshDatabase;
     use WithFaker;
-
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->withoutMiddleware();
     }
 

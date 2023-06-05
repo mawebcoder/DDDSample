@@ -7,5 +7,7 @@ use Codestoon\Domains\ACL\ValueObjects\RoleValueObject;
 interface ACLWriteRepositoryInterface
 {
 
-    public function store(RoleValueObject $roleValueObject, array $permissionIds):void;
+    public function store(RoleValueObject $roleValueObject, array $permissionIds): void;
+
+    public function update(RoleValueObject $roleValueObject, array $permissions): void;
 }
