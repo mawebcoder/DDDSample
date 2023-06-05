@@ -93,4 +93,23 @@ class UserTest extends TestCase
     public function test_users_list()
     {
     }
+
+    public function test_can_not_update_user_if_user_not_exists()
+    {
+
+    }
+
+    public function test_can_not_update_user_if_another_user_with_same_email_or_phone_number_exists(){
+
+    }
+
+    public function test_can_not_register_user_if_another_user_exists_with_same_email_or_phone_number()
+    {
+
+    }
+
+    public function test_can_not_register_user_if_role_not_exists()
+    {
+
+    }
 }

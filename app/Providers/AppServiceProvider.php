@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerACLDomain();
         $this->registerUserDomain();
+        $this->registerFileDomain();
     }
 
 
@@ -86,5 +87,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserWriteRepositoryInterface::class, function () {
             return resolve(UserWriteRepository::class);
         });
+    }
+
+    private function registerFileDomain(): void
+    {
+        /**
+         * Load migrations
+         */
+
+        $this->loadMigrationsFrom(__DIR__ . '/../../Codestoon/Infrastructure/File/Migrations');
     }
 }

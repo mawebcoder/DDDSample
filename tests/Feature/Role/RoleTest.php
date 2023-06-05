@@ -83,9 +83,9 @@ class RoleTest extends TestCase
 
     public function test_can_delete_a_role()
     {
-        $role=Role::factory()->create();
+        $role = Role::factory()->create();
 
-        $response=$this->deleteJson(route('role.delete',['id'=>$role->id]));
+        $response = $this->deleteJson(route('role.delete', ['id' => $role->id]));
 
         $response->assertOk();
 
@@ -101,6 +101,18 @@ class RoleTest extends TestCase
     }
 
     public function test_register_role_validation()
+    {
+    }
+
+    public function test_can_not_update_role_if_another_role_exists_with_same_persian_or_english_title()
+    {
+    }
+
+    public function test_can_not_update_role_if_role_not_exists()
+    {
+    }
+
+    public function test_can_not_register_role_if_another_role_with_same_persian_or_english_title_exist()
     {
     }
 }

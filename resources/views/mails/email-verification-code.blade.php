@@ -8,7 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-
-<img alt="image" src="https://codestoon.s3.ir-thr-at1.arvanstorage.ir/files/image2.png">
+hi
+<br/>
+your code is <strong>{{$code}} </strong>
 </body>
 </html>
