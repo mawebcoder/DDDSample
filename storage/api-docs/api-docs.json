@@ -1,0 +1,508 @@
+{
+    "swagger": "2.0",
+    "x-stoplight": {
+        "id": "gh9ym33ur80g1"
+    },
+    "info": {
+        "title": "admin codestoon",
+        "version": "1.0",
+        "description": "Codestoon admin panel api docs",
+        "contact": {
+            "name": "Codestoon ",
+            "email": "info@codestoon.com"
+        },
+        "license": {}
+    },
+    "host": "localhost:9080",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/roles": {
+            "post": {
+                "summary": "Register New Role",
+                "operationId": "post-api-roles",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "05fav56u7f979"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "successful"
+                            }
+                        }
+                    }
+                },
+                "description": "Register new Role in admin panel",
+                "x-internal": true,
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "persian_title": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "366q3073l98vx"
+                                    }
+                                },
+                                "english_title": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "ruqnj8gbrlg37"
+                                    }
+                                },
+                                "is_active": {
+                                    "type": "boolean",
+                                    "x-stoplight": {
+                                        "id": "gswi4ixzmudhp"
+                                    }
+                                },
+                                "permissions": {
+                                    "type": "array",
+                                    "x-stoplight": {
+                                        "id": "j32qdagftfs0o"
+                                    },
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "x-stoplight": {
+                                            "id": "2ravmyl0sactn"
+                                        },
+                                        "type": "integer",
+                                        "example": 12
+                                    }
+                                }
+                            }
+                        },
+                        "x-examples": {
+                            "Example 1": {
+                                "persian_title": "persian_title",
+                                "english_title": "english_title",
+                                "is_active": true,
+                                "permissions": [
+                                    12,
+                                    13,
+                                    10
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/roles/{id}": {
+            "parameters": [
+                {
+                    "type": "integer",
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "role id"
+                }
+            ],
+            "put": {
+                "summary": "",
+                "operationId": "put-api-roles-id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "otyjx1dpbsmjs"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "successful"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Role"
+                ],
+                "description": "Update Role",
+                "x-internal": true,
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "persian_title": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "51ir1gdj8fjqc"
+                                    }
+                                },
+                                "englilsh_title": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "h8l74lv4h0j8s"
+                                    }
+                                },
+                                "is_active": {
+                                    "type": "boolean",
+                                    "x-stoplight": {
+                                        "id": "afflha3qphhj0"
+                                    }
+                                },
+                                "permissions": {
+                                    "type": "array",
+                                    "x-stoplight": {
+                                        "id": "rcmzzccdsgexl"
+                                    },
+                                    "items": {
+                                        "x-stoplight": {
+                                            "id": "8km7n90vglc76"
+                                        },
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        },
+                        "x-examples": {
+                            "Example 1": {
+                                "persian_title": "updated_persian_title",
+                                "englilsh_title": "updated_english_title",
+                                "is_active": true,
+                                "permissions": [
+                                    10,
+                                    11
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete Role",
+                "operationId": "delete-api-roles-id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "w5jeqop6pq3ah"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "success"
+                            }
+                        }
+                    }
+                },
+                "x-internal": true,
+                "description": "Delete role ",
+                "tags": [
+                    "Role"
+                ]
+            }
+        },
+        "/api/users": {
+            "post": {
+                "summary": "Register new user in Admin panel",
+                "operationId": "post-api-users",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "vcvmtrvj5v0mf"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "successfull"
+                            }
+                        }
+                    }
+                },
+                "description": "Register new user In Admin panel",
+                "x-internal": true,
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "first_name": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "icry3ordffc38"
+                                    }
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "m30ebnx744uge"
+                                    }
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "9oeeam8sc6v79"
+                                    }
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "jrdnluk4lginj"
+                                    }
+                                },
+                                "is_active": {
+                                    "type": "boolean",
+                                    "x-stoplight": {
+                                        "id": "nffaovi3r6fw2"
+                                    }
+                                },
+                                "role_id": {
+                                    "type": "integer",
+                                    "x-stoplight": {
+                                        "id": "chchljv18imo1"
+                                    }
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "tytbvazfecf9n"
+                                    }
+                                }
+                            }
+                        },
+                        "x-examples": {
+                            "Example 1": {
+                                "first_name": "ali",
+                                "last_name": "ahmadi",
+                                "email": "mawebcoder@gmail.com",
+                                "phone_number": "09356786534",
+                                "is_active": true,
+                                "role_id": 10,
+                                "password": "$moha*12|}"
+                            }
+                        }
+                    }
+                ],
+                "tags": [
+                    "User"
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "parameters": [
+                {
+                    "type": "string",
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "user id"
+                }
+            ],
+            "put": {
+                "summary": "Update User",
+                "operationId": "put-api-users-id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "qxo94axbslxw0"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "string"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User"
+                ],
+                "x-internal": true,
+                "description": "Update user in admin panel",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "first_name": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "me03rvvbux1bc"
+                                    }
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "3hsp9bcnc092r"
+                                    }
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "cb5qbuasr2usn"
+                                    }
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "zh3uaovninht7"
+                                    }
+                                },
+                                "is_active": {
+                                    "type": "boolean",
+                                    "x-stoplight": {
+                                        "id": "902q4s5g7q961"
+                                    }
+                                },
+                                "role_id": {
+                                    "type": "integer",
+                                    "x-stoplight": {
+                                        "id": "qpqclokqdvbtd"
+                                    }
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "6ih5dbwhuntdl"
+                                    }
+                                }
+                            }
+                        },
+                        "x-examples": {
+                            "Example 1": {
+                                "first_name": "gholam",
+                                "last_name": "gholami",
+                                "email": "moh@gmail.com",
+                                "phone_number": "09876544532",
+                                "is_active": true,
+                                "role_id": 16,
+                                "password": "pass"
+                            }
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete user",
+                "operationId": "delete-api-users-id",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "x-stoplight": {
+                                        "id": "cnrfnesi34oxw"
+                                    }
+                                }
+                            }
+                        },
+                        "examples": {
+                            "Example 1": {
+                                "message": "successful"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User"
+                ],
+                "x-internal": true,
+                "description": "Delete an user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {}
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {},
+    "basePath": "/api",
+    "x-internal": true,
+    "securityDefinitions": {
+        "Authorization": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization",
+            "description": "token to authenticate"
+        }
+    },
+    "security": [
+        {
+            "Authorization": []
+        }
+    ]
+}
