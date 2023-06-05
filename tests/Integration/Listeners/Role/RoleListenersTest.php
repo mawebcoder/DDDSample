@@ -11,11 +11,16 @@ use Codestoon\Infrastructure\ACL\Elasticsearch\Models\ERole;
 use Codestoon\Infrastructure\ACL\Listeners\DeleteRoleFromElasticsearchListener;
 use Codestoon\Infrastructure\ACL\Listeners\SyncRoleWithElasticsearchListener;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Event;
 use Mawebcoder\Elasticsearch\Exceptions\FieldNotDefinedInIndexException;
+use Mawebcoder\Elasticsearch\Facade\Elasticsearch;
 use ReflectionException;
+use Tests\CreatesApplication;
 use Tests\TestCase;
 use Throwable;
 
@@ -24,6 +29,7 @@ class RoleListenersTest extends TestCase
 
     use RefreshDatabase;
     use WithFaker;
+
 
     /**
      * @throws Throwable
@@ -35,13 +41,23 @@ class RoleListenersTest extends TestCase
     {
         $role = Role::factory()->create();
 
-        $mock = $this->getMockBuilder(RoleDeletedEvent::class)
-            ->setConstructorArgs(['role' => $role])
-            ->getMock();
+        $mock=$this->getMockBuilder(RoleDeletedEvent::class)
+            ->setConstructorArgs([
+                'role'=>$role
+            ])->getMock();
 
-        $listener = new DeleteRoleFromElasticsearchListener();
+        $listener=new DeleteRoleFromElasticsearchListener();
+
+        sleep(1);
 
         $listener->handle($mock);
+
+        sleep(1);
+
+        $eRole=ERole::newQuery()
+            ->find($role->id);
+
+        $this->assertNull($eRole);
     }
 
     /**

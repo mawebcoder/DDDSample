@@ -2,11 +2,13 @@
 
 namespace Codestoon\Infrastructure\ACL\Listeners;
 
+use Codestoon\Domains\ACL\Entities\Role;
 use Codestoon\Domains\ACL\Events\RoleDeletedEvent;
 use Codestoon\Domains\BaseModel;
 use Codestoon\Infrastructure\ACL\Elasticsearch\Models\ERole;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Log;
 use ReflectionException;
 use Throwable;
 
@@ -21,6 +23,8 @@ class DeleteRoleFromElasticsearchListener
      */
     public function handle(RoleDeletedEvent $roleDeletedEvent): void
     {
-        ERole::newQuery()->find($roleDeletedEvent->role->{BaseModel::COLUMN_ID})?->delete();
+        $role = ERole::newQuery()->find($roleDeletedEvent->role->id);
+
+        $role?->delete();
     }
 }
