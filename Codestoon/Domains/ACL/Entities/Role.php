@@ -6,13 +6,14 @@ use Codestoon\Domains\ACL\Aggregates\RoleAggregatesTrait;
 use Codestoon\Domains\ACL\Events\RoleCreatedEvent;
 use Codestoon\Infrastructure\ACL\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Codestoon\Domains\BaseModel;
 
-class Role extends Model
+class Role extends BaseModel
 {
     use HasFactory;
     use RoleAggregatesTrait;
+    use SoftDeletes;
 
     protected $table = 'roles';
 

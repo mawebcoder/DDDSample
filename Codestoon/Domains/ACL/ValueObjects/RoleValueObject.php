@@ -38,8 +38,8 @@ readonly class RoleValueObject
         return $this;
     }
 
-    public function getIsActive(): bool
+    public function getIsActive(): int
     {
-        return boolval($this->isActive);
+        return intval($this->isActive);
     }
 }

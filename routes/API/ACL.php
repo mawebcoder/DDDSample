@@ -8,4 +8,5 @@ Route::prefix('roles')
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::post('/', 'store')->name('role.store');
+        Route::put('/{id}', 'update')->name('role.update');
     });

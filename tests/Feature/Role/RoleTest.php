@@ -16,6 +16,7 @@ class RoleTest extends TestCase
 
     use RefreshDatabase;
     use WithFaker;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -51,8 +52,33 @@ class RoleTest extends TestCase
         }
     }
 
-    public function test_can_update_an_user()
+    public function test_can_update_a_role()
     {
+        $role = Role::factory()
+            ->has(Permission::factory(), 'permissions')
+            ->create();
+
+        $permissions = Permission::factory()->count(3)->create();
+
+        $data = [
+            'persian_title' => $this->faker->unique()->name,
+            'english_title' => $this->faker->unique()->name,
+            'is_active' => $this->faker->boolean,
+            'permissions' => $permissions->pluck('id')->toArray()
+        ];
+
+        $response = $this->putJson(route('role.update', ['id' => $role->id]), $data);
+
+        $response->assertOk();
+
+        $this->assertDatabaseHas((new Role())->getTable(), Arr::except($data, ['permissions']));
+
+        foreach ($permissions as $permission) {
+            $this->assertDatabaseHas('permission_role', [
+                'role_id' => $role->id,
+                'permission_id' => $permission->id
+            ]);
+        }
     }
 
     public function test_can_delete_an_user()
