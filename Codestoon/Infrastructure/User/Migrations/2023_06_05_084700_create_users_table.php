@@ -13,6 +13,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create((new User())->getTable(), function (Blueprint $table) {
+            $table->id();
             $table->string(User::COLUMN_FIRST_NAME)->nullable();
             $table->string(User::COLUMN_LAST_NAME)->nullable();
             $table->string(User::COLUMN_EMAIL)->unique();
@@ -32,6 +33,7 @@ return new class extends Migration {
                 ->nullOnDelete();
             $table->string(User::COLUMN_PASSWORD);
             $table->string(User::COLUMN_TEMPORARY_PASSWORD)->nullable();
+            $table->timestamps();
         });
     }
 

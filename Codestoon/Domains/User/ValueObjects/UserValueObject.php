@@ -82,7 +82,7 @@ readonly class UserValueObject
     public function setEmailVerificationCodeExpiresAt(?Carbon $carbon): static
     {
         $this->emailVerificationCodeExpiresAt = $carbon?->format('Y-m-d H:i:s');
-        return  $this;
+        return $this;
     }
 
     public function getEmailVerificationExpiresAt(): ?string
@@ -169,8 +169,13 @@ readonly class UserValueObject
 
     public function setPassword(string $password): static
     {
-        $this->password = Hash::make($password);
+        $this->password = bcrypt($password);
         return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 
     public function setTemporaryPassword(string $temporaryPassword): static

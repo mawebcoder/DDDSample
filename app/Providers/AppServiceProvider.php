@@ -11,11 +11,15 @@ use Codestoon\Domains\ACL\Repositories\ACLWriteRepositoryInterface;
 use Codestoon\Domains\ACL\Services\DeleteRoleServiceInterface;
 use Codestoon\Domains\ACL\Services\RegisterRoleServiceInterface;
 use Codestoon\Domains\ACL\Services\UpdateRoleServiceInterface;
+use Codestoon\Domains\User\Repositories\UserReadRepositoryInterface;
+use Codestoon\Domains\User\Repositories\UserWriteRepositoryInterface;
 use Codestoon\Infrastructure\ACL\Repositories\ACLReadRepository;
 use Codestoon\Infrastructure\ACL\Repositories\ACLWriteRepository;
 use Codestoon\Infrastructure\ACL\Services\DeleteRoleService;
 use Codestoon\Infrastructure\ACL\Services\RegisterRoleService;
 use Codestoon\Infrastructure\ACL\Services\UpdateRoleService;
+use Codestoon\Infrastructure\User\Repositories\UserReadRepository;
+use Codestoon\Infrastructure\User\Repositories\UserWriteRepository;
 use Illuminate\Support\ServiceProvider;
 use Mawebcoder\Elasticsearch\Facade\Elasticsearch;
 
@@ -58,25 +62,23 @@ class AppServiceProvider extends ServiceProvider
          * Load Elasticsearch migrations
          */
         Elasticsearch::loadMigrationsFrom(__DIR__ . '/../../Codestoon/Infrastructure/ACL/Elasticsearch/Migrations');
-
-        /**
-         * Bind Services
-         */
-        $this->app->bind(RegisterRoleServiceInterface::class, function () {
-            return resolve(RegisterRoleService::class);
-        });
-
-        $this->app->bind(UpdateRoleServiceInterface::class, function () {
-            return resolve(UpdateRoleService::class);
-        });
-
-        $this->app->bind(DeleteRoleServiceInterface::class, function () {
-            return resolve(DeleteRoleService::class);
-        });
     }
 
     private function registerUserDomain(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../Codestoon/Infrastructure/User/Migrations');
+
+
+        /**
+         * bind Repositories
+         */
+
+        $this->app->bind(UserReadRepositoryInterface::class, function () {
+            return resolve(UserReadRepository::class);
+        });
+
+        $this->app->bind(UserWriteRepositoryInterface::class, function () {
+            return resolve(UserWriteRepository::class);
+        });
     }
 }

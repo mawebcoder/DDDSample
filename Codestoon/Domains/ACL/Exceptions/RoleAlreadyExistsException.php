@@ -2,9 +2,9 @@
 
 namespace Codestoon\Domains\ACL\Exceptions;
 
-use Exception;
+use Codestoon\Domains\BaseException;
 
-class RoleAlreadyExistsException extends Exception
+class RoleAlreadyExistsException extends BaseException
 {
     public function __construct()
     {

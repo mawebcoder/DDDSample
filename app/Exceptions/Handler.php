@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Codestoon\Domains\BaseException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -35,7 +36,7 @@ class Handler extends ExceptionHandler
         Throwable $e
     ): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response {
 
-        if ($request->expectsJson()) {
+        if ($request->expectsJson() && $e instanceof BaseException) {
             return response()
                 ->json([
                     'message' => $e->getMessage(),

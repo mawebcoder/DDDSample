@@ -92,23 +92,15 @@ class RoleTest extends TestCase
         $this->assertModelMissing($role);
     }
 
-    public function test_can_force_delete_an_user()
+    public function test_roles_list()
     {
     }
 
-    public function test_can_restore_an_user()
+    public function test_update_role_validation()
     {
     }
 
-    public function test_users_list()
-    {
-    }
-
-    public function test_update_user_validation()
-    {
-    }
-
-    public function test_register_user_validation()
+    public function test_register_role_validation()
     {
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Codestoon\Domains\ACL\Exceptions;
 
-use Exception;
+use Codestoon\Domains\BaseException;
 
-class RoleNotFoundException extends Exception
+class RoleNotFoundException extends BaseException
 {
 
     public function __construct()
     {
-        parent::__construct(message: trans('acl::validations.RoleNotFound'), code: 404);
+        parent::__construct(message: trans('acl::validations.RoleNotFound'), code: 406);
     }
 }
