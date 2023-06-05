@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use App\TestOne;
+use App\TestOneInterface;
+use App\TestTwo;
+use App\TestTwoInterface;
 use Codestoon\Domains\ACL\Repositories\ACLReadRepositoryInterface;
 use Codestoon\Domains\ACL\Repositories\ACLWriteRepositoryInterface;
+use Codestoon\Domains\ACL\Services\DeleteRoleServiceInterface;
 use Codestoon\Domains\ACL\Services\RegisterRoleServiceInterface;
 use Codestoon\Domains\ACL\Services\UpdateRoleServiceInterface;
 use Codestoon\Infrastructure\ACL\Repositories\ACLReadRepository;
 use Codestoon\Infrastructure\ACL\Repositories\ACLWriteRepository;
+use Codestoon\Infrastructure\ACL\Services\DeleteRoleService;
 use Codestoon\Infrastructure\ACL\Services\RegisterRoleService;
 use Codestoon\Infrastructure\ACL\Services\UpdateRoleService;
 use Illuminate\Support\ServiceProvider;
@@ -35,8 +41,13 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Bind Repositories
          */
-        $this->app->bind(ACLWriteRepositoryInterface::class, ACLWriteRepository::class);
-        $this->app->bind(ACLReadRepositoryInterface::class, ACLReadRepository::class);
+        $this->app->bind(ACLWriteRepositoryInterface::class, function () {
+            return resolve(ACLWriteRepository::class);
+        });
+
+        $this->app->bind(ACLReadRepositoryInterface::class, function () {
+            return resolve(ACLReadRepository::class);
+        });
 
         /**
          * Load Translations
@@ -51,8 +62,17 @@ class AppServiceProvider extends ServiceProvider
         /**
          * Bind Services
          */
-        $this->app->bind(RegisterRoleServiceInterface::class, RegisterRoleService::class);
-        $this->app->bind(UpdateRoleServiceInterface::class, UpdateRoleService::class);
+        $this->app->bind(RegisterRoleServiceInterface::class, function () {
+            return resolve(RegisterRoleService::class);
+        });
+
+        $this->app->bind(UpdateRoleServiceInterface::class, function () {
+            return resolve(UpdateRoleService::class);
+        });
+
+        $this->app->bind(DeleteRoleServiceInterface::class, function () {
+            return resolve(DeleteRoleService::class);
+        });
     }
 
     private function registerUserDomain(): void

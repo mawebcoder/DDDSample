@@ -9,4 +9,5 @@ Route::prefix('roles')
     ->group(function () {
         Route::post('/', 'store')->name('role.store');
         Route::put('/{id}', 'update')->name('role.update');
+        Route::delete('/{id}', 'delete')->name('role.delete');
     });

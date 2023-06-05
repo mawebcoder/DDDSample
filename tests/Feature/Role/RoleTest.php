@@ -81,8 +81,15 @@ class RoleTest extends TestCase
         }
     }
 
-    public function test_can_delete_an_user()
+    public function test_can_delete_a_role()
     {
+        $role=Role::factory()->create();
+
+        $response=$this->deleteJson(route('role.delete',['id'=>$role->id]));
+
+        $response->assertOk();
+
+        $this->assertModelMissing($role);
     }
 
     public function test_can_force_delete_an_user()

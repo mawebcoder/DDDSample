@@ -13,7 +13,6 @@ class Role extends BaseModel
 {
     use HasFactory;
     use RoleAggregatesTrait;
-    use SoftDeletes;
 
     protected $table = 'roles';
 

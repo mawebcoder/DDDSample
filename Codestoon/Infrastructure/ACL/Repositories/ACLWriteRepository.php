@@ -80,4 +80,16 @@ class ACLWriteRepository implements ACLWriteRepositoryInterface
 
         throw_if($role, RoleAlreadyExistsException::class);
     }
+
+    /**
+     * @throws Throwable
+     */
+    public function delete(int $roleId): void
+    {
+        $role = Role::getById($roleId);
+
+        throw_if(!$role, RoleNotFoundException::class);
+
+        $role->delete();
+    }
 }
