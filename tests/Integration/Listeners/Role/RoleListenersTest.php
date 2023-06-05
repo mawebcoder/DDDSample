@@ -74,7 +74,6 @@ class RoleListenersTest extends TestCase
 
         $this->assertNotNull($eRole);
 
-        dump($eRole);
         $eRole->delete();
     }
 }
