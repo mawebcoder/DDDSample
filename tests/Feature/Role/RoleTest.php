@@ -92,7 +92,13 @@ class RoleTest extends TestCase
         $this->assertModelMissing($role);
     }
 
-    public function test_roles_list()
+
+    public function test_role_list_select_box()
+    {
+
+    }
+
+    public function test_roles_list_table()
     {
     }
 

@@ -4,6 +4,8 @@ namespace Codestoon\Domains\ACL\Entities;
 
 use Codestoon\Domains\ACL\Aggregates\RoleAggregatesTrait;
 use Codestoon\Domains\ACL\Events\RoleCreatedEvent;
+use Codestoon\Domains\ACL\Events\RoleDeletedEvent;
+use Codestoon\Domains\ACL\Events\RoleUpdatedEvent;
 use Codestoon\Infrastructure\ACL\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +19,9 @@ class Role extends BaseModel
     protected $table = 'roles';
 
     protected $dispatchesEvents = [
-        'created' => RoleCreatedEvent::class
+        'created' => RoleCreatedEvent::class,
+        'updated' => RoleUpdatedEvent::class,
+        'deleted' => RoleDeletedEvent::class
     ];
 
     public const COLUMN_PERSIAN_TITLE = 'persian_title';
